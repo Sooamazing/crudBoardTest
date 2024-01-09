@@ -1,4 +1,4 @@
-package stelligence.crudtest.post.controller;
+package stelligence.crudtest.posts.controller;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import stelligence.crudtest.post.dto.PostRequestDto;
-import stelligence.crudtest.post.dto.PostResponseDto;
-import stelligence.crudtest.post.dto.PostShortResponseDto;
-import stelligence.crudtest.post.service.PostService;
+import stelligence.crudtest.posts.dto.PostRequestDto;
+import stelligence.crudtest.posts.dto.PostResponseDto;
+import stelligence.crudtest.posts.dto.PostShortResponseDto;
+import stelligence.crudtest.posts.service.PostService;
 
 @Slf4j
 @RestController
@@ -32,6 +32,7 @@ public class PostController {
 	}
 
 	// TODO update와 조회는 별개로 분리해야 함! - lastModifiedDate는 그렇게. 이와 별개로 바로 반영되게 하는 방법 존재?
+	// TODO update 시 조회를 하면 기능이 두 개가 된다.
 	// TODO PATCH하면 들어오자마자 insert 쿼리 나감...
 	@PatchMapping("/posts/{id}")
 	public PostResponseDto update(@PathVariable("id") Long id, @RequestBody PostRequestDto postRequestDto) {

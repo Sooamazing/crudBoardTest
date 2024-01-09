@@ -1,4 +1,4 @@
-package stelligence.crudtest.post.entity;
+package stelligence.crudtest.posts.entity;
 
 import org.hibernate.annotations.SQLDelete;
 
@@ -15,7 +15,7 @@ import stelligence.crudtest.util.BaseEntity;
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE post SET deleted = true WHERE id = ?")
-public class Post extends BaseEntity {
+public class Posts extends BaseEntity {
 
 	// Entity는 순수하게 유지하고, 유효성 검증 등은 Dto에서 수행하도록 하자.
 	// 비즈니스 로직이 Entity에 들어가야 하는 경우가 많다고 함. 응집성이 높아지는 경우가 있음. -> update 메서드 사용하는 게 Entity에 수정할 책임을 넘기는 거라 이것도 하나의 예시가 될 수 있음.
@@ -43,7 +43,7 @@ public class Post extends BaseEntity {
 	// @ColumnDefault("false")
 	private boolean deleted;
 
-	public Post(String title, String contents) {
+	public Posts(String title, String contents) {
 		this.title = title;
 		this.contents = contents;
 		this.deleted = false;
@@ -61,7 +61,7 @@ public class Post extends BaseEntity {
 
 	// TODO 어떤 걸 update하는지 모르니까 명확하게.
 	// TODO return this 왜 안 되냐?
-	public Post update(String title, String contents) {
+	public Posts update(String title, String contents) {
 		// TODO this는 인스턴스 자신을 가리키는 참조 변수인 거겠지?
 		this.title = title;
 		this.contents = contents;

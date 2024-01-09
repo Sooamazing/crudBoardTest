@@ -1,4 +1,4 @@
-package stelligence.crudtest.post.dto;
+package stelligence.crudtest.posts.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

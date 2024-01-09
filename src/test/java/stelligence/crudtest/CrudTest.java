@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import stelligence.crudtest.post.repository.PostRepository;
+import stelligence.crudtest.posts.repository.PostRepository;
 
 @SpringBootTest
 public class CrudTest {
