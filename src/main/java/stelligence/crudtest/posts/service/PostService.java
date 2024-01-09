@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import stelligence.crudtest.posts.dto.PostRequestDto;
 import stelligence.crudtest.posts.dto.PostResponseDto;
 import stelligence.crudtest.posts.dto.PostShortResponseDto;
-import stelligence.crudtest.posts.entity.Posts;
+import stelligence.crudtest.posts.entity.Post;
 import stelligence.crudtest.posts.repository.PostRepository;
 
 @Slf4j
@@ -32,22 +32,22 @@ public class PostService {
 
 	@Transactional(readOnly = true)
 	public PostResponseDto findPost(Long id) {
-		Posts posts = postRepository.findById(id)
+		Post post = postRepository.findById(id)
 			.orElseThrow(
 				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-		if (posts.isDeleted()) {
+		if (post.isDeleted()) {
 			throw new IllegalArgumentException("해당 게시글이 삭제됐습니다. id=" + id);
 		}
-		return PostResponseDto.from(posts);
+		return PostResponseDto.from(post);
 	}
 
 	// save
 	@Transactional
 	public PostResponseDto savePost(PostRequestDto postRequestDto) {
 
-		Posts posts = new Posts(postRequestDto.getTitle(), postRequestDto.getContents());
-		Posts savedPosts = postRepository.save(posts);
-		return PostResponseDto.from(savedPosts);
+		Post post = new Post(postRequestDto.getTitle(), postRequestDto.getContents());
+		Post savedPost = postRepository.save(post);
+		return PostResponseDto.from(savedPost);
 
 	}
 
@@ -55,17 +55,17 @@ public class PostService {
 	@Transactional
 	public PostResponseDto update(Long id, PostRequestDto postRequestDto) {
 
-		Posts posts = postRepository.findById(id)
+		Post post = postRepository.findById(id)
 			.orElseThrow(
 				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
-		if (posts.isDeleted()) {
+		if (post.isDeleted()) {
 			throw new IllegalArgumentException("해당 게시글이 삭제됐습니다. id=" + id);
 		}
 
-		posts.update(postRequestDto.getTitle(), postRequestDto.getContents());
+		post.update(postRequestDto.getTitle(), postRequestDto.getContents());
 
-		return PostResponseDto.from(posts);
+		return PostResponseDto.from(post);
 
 	}
 

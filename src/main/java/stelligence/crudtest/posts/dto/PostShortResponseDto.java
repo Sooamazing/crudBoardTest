@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import stelligence.crudtest.posts.entity.Posts;
+import stelligence.crudtest.posts.entity.Post;
 
 @Getter // TODO 직렬화할 때 필요함!!!!
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
@@ -16,8 +16,8 @@ public class PostShortResponseDto {
 	private String title;
 	private LocalDateTime createdDate;
 
-	public static PostShortResponseDto from(Posts posts) {
-		return new PostShortResponseDto(posts.getId(), posts.getTitle(), posts.getCreatedDate());
+	public static PostShortResponseDto from(Post post) {
+		return new PostShortResponseDto(post.getId(), post.getTitle(), post.getCreatedDate());
 	}
 
 }

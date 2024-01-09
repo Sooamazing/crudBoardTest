@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import stelligence.crudtest.posts.entity.Posts;
+import stelligence.crudtest.posts.entity.Post;
 
 @Getter
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
@@ -18,14 +18,14 @@ public class PostResponseDto {
 	private LocalDateTime createdDate;
 	private LocalDateTime lastModifiedDate;
 
-	public static PostResponseDto from(Posts posts) {
+	public static PostResponseDto from(Post post) {
 
 		return new PostResponseDto(
-			posts.getId(),
-			posts.getTitle(),
-			posts.getContents(),
-			posts.getCreatedDate(),
-			posts.getLastModifiedDate());
+			post.getId(),
+			post.getTitle(),
+			post.getContents(),
+			post.getCreatedDate(),
+			post.getLastModifiedDate());
 	}
 
 }

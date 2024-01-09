@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,13 @@ public class PostController {
 	// TODO update 시 조회를 하면 기능이 두 개가 된다.
 	// TODO PATCH하면 들어오자마자 insert 쿼리 나감...
 	@PatchMapping("/posts/{id}")
-	public PostResponseDto update(@PathVariable("id") Long id, @RequestBody PostRequestDto postRequestDto) {
+	public PostResponseDto update1(@PathVariable("id") Long id, @RequestBody PostRequestDto postRequestDto) {
+		log.info("id: {}, postRequestDto: {}", id, postRequestDto);
+		return postService.update(id, postRequestDto);
+	}
+
+	@PutMapping("/posts/{id}")
+	public PostResponseDto update2(@PathVariable("id") Long id, @RequestBody PostRequestDto postRequestDto) {
 		log.info("id: {}, postRequestDto: {}", id, postRequestDto);
 		return postService.update(id, postRequestDto);
 	}
