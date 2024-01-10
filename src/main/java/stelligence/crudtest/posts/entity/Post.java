@@ -21,7 +21,7 @@ import stelligence.crudtest.util.BaseEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE posts SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE post SET deleted = true WHERE id = ?")
 public class Post extends BaseEntity {
 
 	// Entity는 순수하게 유지하고, 유효성 검증 등은 Dto에서 수행하도록 하자.

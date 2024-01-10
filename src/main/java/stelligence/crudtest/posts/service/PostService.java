@@ -59,6 +59,13 @@ public class PostService {
 			.orElseThrow(
 				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
+		PostResponseDto.from(postRepository.findById(id)
+			.orElseThrow(
+				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id)));
+
+		PostResponseDto postResponseDto = new PostResponseDto(post);
+		PostResponseDto postResponseDto1 = postResponseDto.of(post);
+
 		if (post.isDeleted()) {
 			throw new IllegalArgumentException("해당 게시글이 삭제됐습니다. id=" + id);
 		}
@@ -72,6 +79,7 @@ public class PostService {
 	// delete
 	@Transactional
 	public void deletePost(Long id) {
+		log.info("id: {}", id);
 		postRepository.deleteById(id);
 	}
 
