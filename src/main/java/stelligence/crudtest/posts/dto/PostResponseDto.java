@@ -29,6 +29,8 @@ public class PostResponseDto {
 		this.comments = post.getComments()
 			.stream().map(CommentResponseDto::from)
 			.toList();
+		// map은 stream의 주체를 바꿈.
+		// forEach는 각각에 대해 수행하는 것 뿐.
 		this.createdDate = post.getCreatedDate();
 		this.lastModifiedDate = post.getLastModifiedDate();
 	}

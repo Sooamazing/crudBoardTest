@@ -2,6 +2,7 @@ package stelligence.crudtest.posts.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,16 +23,21 @@ public class PostService {
 	private final PostRepository postRepository;
 
 	@Transactional(readOnly = true)
-	public List<PostShortResponseDto> findAllPosts() {
-		return postRepository.findAll()
+	public List<PostShortResponseDto> findAllPosts(Pageable pageable) {
+		return postRepository.findAll(pageable)
 			.stream()
-			// .filter(post -> !post.isDeleted())
 			.map(PostShortResponseDto::from)
 			.toList();
+		// return postRepository.findAll()
+		// 	.stream()
+		// 	// .filter(post -> !post.isDeleted())
+		// 	.map(PostShortResponseDto::from)
+		// 	.toList();
 	}
 
 	@Transactional(readOnly = true)
-	public PostResponseDto findPost(Long id) {
+	public PostResponseDto findPost(Long id, int page, int size) {
+		// PageRequest pageRequest = PageRequest.of(page, size);
 		Post post = postRepository.findById(id)
 			.orElseThrow(
 				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
@@ -63,8 +69,8 @@ public class PostService {
 			.orElseThrow(
 				() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id)));
 
-		PostResponseDto postResponseDto = new PostResponseDto(post);
-		PostResponseDto postResponseDto1 = postResponseDto.of(post);
+		// PostResponseDto postResponseDto = new PostResponseDto(post);
+		// PostResponseDto postResponseDto1 = postResponseDto.of(post);
 
 		if (post.isDeleted()) {
 			throw new IllegalArgumentException("해당 게시글이 삭제됐습니다. id=" + id);
@@ -81,6 +87,11 @@ public class PostService {
 	public void deletePost(Long id) {
 		log.info("id: {}", id);
 		postRepository.deleteById(id);
+	}
+
+	@Transactional
+	public void test() {
+		
 	}
 
 }

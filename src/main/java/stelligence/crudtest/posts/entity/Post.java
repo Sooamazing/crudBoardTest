@@ -3,11 +3,13 @@ package stelligence.crudtest.posts.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SQLDelete;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -54,7 +56,12 @@ public class Post extends BaseEntity {
 	@NotNull // TODO 이거 nullable로 하면 안 되나?
 	private boolean deleted;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	// 컬렉션은 기본적으로 LAZY, 처음에 비어 있음.
+	// BatchSize로 비어 있는 걸 채워주는 것.
+	// orphanRemoval = true는 내가 방출하면 comment가 삭제됨.
+	// cascade는 주인(post)이 삭제되면 comment도 삭제됨.
+	@BatchSize(size = 100)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Comment> comments = new ArrayList<>();
 
 	public Post(String title, String contents) {

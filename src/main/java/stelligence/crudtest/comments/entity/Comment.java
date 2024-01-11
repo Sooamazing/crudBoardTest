@@ -34,6 +34,7 @@ public class Comment extends BaseEntity {
 	@NotNull
 	private boolean deleted;
 
+	// Post 자체가 1개라서 N+1 쿼리가 나갈 일이 없을 것..... Post랑 상관없이 Comment 전체만 존재한다면 N+1 쿼리가 나갈 수 있음.
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id") // comment table에서 Post entity의 PK를 참고할 건데, 그 PK를 여기서는 name으로 지정할 거야!
 	private Post post;
